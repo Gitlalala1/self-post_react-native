@@ -1,20 +1,44 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useCallback } from "react";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { View, Text } from "react-native";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+SplashScreen.preventAutoHideAsync();
+const App = () => {
+	const [appIsReady, setAppIsReady] = useState(false);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	useEffect(() => {
+		async function prepare() {
+			try {
+				await Font.loadAsync({
+					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
+					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
+					"tillana-medium": require("./assets/fonts/Tillana-Medium.ttf"),
+					"tillana-regular": require("./assets/fonts/Tillana-Regular.ttf"),
+					"tillana-semiBold": require("./assets/fonts/Tillana-Bold.ttf"),
+				});
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setAppIsReady(true);
+			}
+		}
+		prepare();
+	}, []);
+
+	const onLayout = useCallback(async () => {
+		if (appIsReady) {
+			await SplashScreen.hideAsync();
+		} else {
+			return null;
+		}
+	}, [appIsReady]);
+
+	return (
+		<View onLayout={onLayout}>
+			<Text>Hellloooo</Text>
+		</View>
+	);
+};
+
+export default App;
