@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-
 import { View, Text } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+
+import Navigation from "./src/components/navigation";
 SplashScreen.preventAutoHideAsync();
 const App = () => {
 	const [appIsReady, setAppIsReady] = useState(false);
@@ -35,8 +36,8 @@ const App = () => {
 	}, [appIsReady]);
 
 	return (
-		<View onLayout={onLayout}>
-			<Text>Hellloooo</Text>
+		<View onLayout={onLayout} style={{ flex: 1 }}>
+			<Navigation />
 		</View>
 	);
 };
