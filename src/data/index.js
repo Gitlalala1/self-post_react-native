@@ -1,0 +1,37 @@
+export default DATA = [
+	{
+		id: "1",
+		img: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		text: "BomBam lala",
+		date: new Date().toJSON(),
+		booked: true,
+	},
+	{
+		id: "2",
+		img: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		text: "lolal treit tu",
+		date: new Date().toJSON(),
+		booked: true,
+	},
+	{
+		id: "3",
+		img: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		text: "kolachamber lala",
+		date: new Date().toJSON(),
+		booked: true,
+	},
+	{
+		id: "4",
+		img: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		text: "rum rum rara",
+		date: new Date().toJSON(),
+		booked: true,
+	},
+	{
+		id: "5",
+		img: "https://i.dummyjson.com/data/products/3/thumbnail.jpg",
+		text: "popop papapa",
+		date: new Date().toJSON(),
+		booked: true,
+	},
+];

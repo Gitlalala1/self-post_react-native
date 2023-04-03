@@ -14,7 +14,7 @@ const App = () => {
 				await Font.loadAsync({
 					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
 					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
-					"tillana-medium": require("./assets/fonts/Tillana-Medium.ttf"),
+					tillana_medium: require("./assets/fonts/Tillana-Medium.ttf"),
 					"tillana-regular": require("./assets/fonts/Tillana-Regular.ttf"),
 					"tillana-semiBold": require("./assets/fonts/Tillana-Bold.ttf"),
 				});

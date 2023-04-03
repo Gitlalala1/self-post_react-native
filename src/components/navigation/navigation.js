@@ -10,10 +10,12 @@ const Navigation = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator
+				initialRouteName="Home"
+				headerMode="screen"
 				screenOptions={{
-					headerMode: "screen",
 					headerTintColor: "white",
 					headerStyle: { backgroundColor: THEME.MAIN_COLOR },
+					headerTitleAlign: "center",
 				}}
 			>
 				<Stack.Screen name="Home" component={MainScreen} />
