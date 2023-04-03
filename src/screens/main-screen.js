@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
-const MainScreen = ({ navigation }) => {
+const MainScreen = ({ navigation: { navigate } }) => {
 	const onPress = () => {
-		navigation.navigate("Post", { name: "tarik" });
+		navigate("Post", { name: "tarik" });
 	};
 
 	return (
