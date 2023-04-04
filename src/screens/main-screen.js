@@ -3,13 +3,17 @@ import { View, StyleSheet, FlatList } from "react-native";
 import PostItem from "../components/post-item";
 import data from "../data";
 import THEME from "../THEME";
-const MainScreen = () => {
+const MainScreen = ({ navigation }) => {
+	const openPost = (post) => {
+		navigation.navigate("Post", { post });
+	};
+
 	return (
 		<View style={styles.container}>
 			<FlatList
 				data={data}
 				keyExtractor={(item) => item.id.toString()}
-				renderItem={({ item }) => <PostItem item={item} />}
+				renderItem={({ item }) => <PostItem item={item} openPost={openPost} />}
 			/>
 		</View>
 	);

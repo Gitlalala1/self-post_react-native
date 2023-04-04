@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const PostScreen = () => {
+const PostScreen = ({ route, navigation, setParams }) => {
+	// const [value, onChangeText] = React.useState(route.params.title);
+	const { post } = route.params;
+
+	useEffect(() => {
+		navigation.setOptions({ title: post.text });
+	}, [navigation]);
+
+	// React.useEffect(() => {
+	// 	navigation.setOptions({
+	// 		title: postId,
+	// 	});
+	// }, [navigation, value]);
 	return (
 		<View style={styles.container}>
-			<Text>Hi</Text>
+			<Text>{post.text}</Text>
 		</View>
 	);
 };

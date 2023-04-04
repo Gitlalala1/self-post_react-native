@@ -12,11 +12,11 @@ const App = () => {
 		async function prepare() {
 			try {
 				await Font.loadAsync({
-					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
-					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
+					tillana_bold: require("./assets/fonts/Tillana-Bold.ttf"),
+					tillana_extraBold: require("./assets/fonts/Tillana-ExtraBold.ttf"),
 					tillana_medium: require("./assets/fonts/Tillana-Medium.ttf"),
-					"tillana-regular": require("./assets/fonts/Tillana-Regular.ttf"),
-					"tillana-semiBold": require("./assets/fonts/Tillana-Bold.ttf"),
+					tillana_regular: require("./assets/fonts/Tillana-Regular.ttf"),
+					tillana_semiBold: require("./assets/fonts/Tillana-Bold.ttf"),
 				});
 			} catch (error) {
 				console.log(error);

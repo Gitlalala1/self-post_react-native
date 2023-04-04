@@ -18,12 +18,17 @@ const Navigation = () => {
 					headerTitleAlign: "center",
 				}}
 			>
-				<Stack.Screen name="Home" component={MainScreen} />
+				<Stack.Screen
+					name="Home"
+					component={MainScreen}
+					options={{
+						headerTitle: "My blog",
+					}}
+				/>
 				<Stack.Screen
 					name="Post"
 					component={PostScreen}
 					options={{
-						headerTitle: "Мой пост",
 						headerStyle: {
 							backgroundColor: "red",
 						},
