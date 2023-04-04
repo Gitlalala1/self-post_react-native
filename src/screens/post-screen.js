@@ -1,22 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
 
-const PostScreen = ({ route, navigation, setParams }) => {
-	// const [value, onChangeText] = React.useState(route.params.title);
+const PostScreen = ({ route, navigation }) => {
 	const { post } = route.params;
 
 	useEffect(() => {
 		navigation.setOptions({ title: post.text });
 	}, [navigation]);
-
-	// React.useEffect(() => {
-	// 	navigation.setOptions({
-	// 		title: postId,
-	// 	});
-	// }, [navigation, value]);
+	const onDeletePost = () => {
+		Alert.alert("Remove post", "You're shure?", [
+			{
+				text: "Cancel",
+				onPress: () => console.log("Cancel Pressed"),
+				style: "cancel",
+			},
+			{ text: "Delete", onPress: () => console.log("OK Pressed") },
+		]);
+	};
 	return (
 		<View style={styles.container}>
-			<Text>{post.text}</Text>
+			<View style={styles.wrap_img}>
+				<Image style={styles.img} source={{ uri: post.img }} />
+			</View>
+			<View style={styles.header}>
+				<View style={styles.wrap_title}>
+					<Text style={styles.title}>{post.text}</Text>
+				</View>
+				<View style={styles.wrap_date}>
+					<Text style={styles.date}>{post.date}</Text>
+				</View>
+			</View>
+			<View style={styles.wrap_button}>
+				<Pressable style={styles.button} title="Delete" onPress={onDeletePost}>
+					<Text style={styles.button_text}>Delete</Text>
+				</Pressable>
+			</View>
 		</View>
 	);
 };
@@ -24,8 +42,47 @@ const PostScreen = ({ route, navigation, setParams }) => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		justifyContent: "center",
+	},
+	wrap_img: {
+		width: "100%",
+		height: 400,
+	},
+	img: {
+		flex: 1,
+	},
+	header: {
+		marginTop: 10,
+		marginBottom: 10,
+		flexDirection: "row",
 		alignItems: "center",
+		justifyContent: "space-around",
+	},
+	wrap_title: {},
+	title: {
+		fontSize: 18,
+		fontWeight: 500,
+	},
+	wrap_date: {},
+	date: {},
+	wrap_button: {
+		justifyContent: "center",
+		width: "100%",
+		flexDirection: "row",
+	},
+	button: {
+		width: "40%",
+		paddingVertical: 10,
+		paddingHorizontal: 14,
+
+		borderStyle: "solid",
+		borderWidth: 1,
+		borderColor: "red",
+		borderRadius: 30,
+		justifyContent: "center",
+	},
+	button_text: {
+		textAlign: "center",
+		color: "red",
 	},
 });
 export default PostScreen;
