@@ -3,4 +3,5 @@ export default THEME = {
 	DANGER_COLOR: "#d81b60",
 	MARGIN_HORIZONTAL: 10,
 	MARGIN_TOP: 10,
+	FONT_FAMILY: "tillana-medium",
 };

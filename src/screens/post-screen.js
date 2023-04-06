@@ -5,7 +5,7 @@ const PostScreen = ({ route, navigation }) => {
 	const { post } = route.params;
 
 	useEffect(() => {
-		navigation.setOptions({ title: post.text });
+		navigation.setOptions({ headerTitle: post.text });
 	}, [navigation]);
 	const onDeletePost = () => {
 		Alert.alert("Remove post", "You're shure?", [
