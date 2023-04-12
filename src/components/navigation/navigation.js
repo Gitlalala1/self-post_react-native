@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import MainScreen from "../../screens/main-screen";
 import PostScreen from "./../../screens/post-screen";
@@ -13,7 +14,7 @@ import HeaderNavigation from "../header-navigation";
 const Tab = createBottomTabNavigator();
 const MainStack = createNativeStackNavigator();
 const TabStack = createNativeStackNavigator();
-
+const DrawerStack = createDrawerNavigator();
 const Navigation = () => {
 	return (
 		<NavigationContainer>
@@ -75,7 +76,7 @@ const MainNavigator = () => {
 			/>
 			<MainStack.Screen
 				name="Post"
-				component={PostScreen}
+				component={DrawerNavigator}
 				options={{
 					headerStyle: {
 						backgroundColor: "red",
@@ -100,4 +101,9 @@ const TabNavigator = () => {
 	);
 };
 
+const DrawerNavigator = () => {
+	<DrawerStack.Navigator>
+		<DrawerStack.Screen name="Home" component={MainScreen} />
+	</DrawerStack.Navigator>;
+};
 export default Navigation;
