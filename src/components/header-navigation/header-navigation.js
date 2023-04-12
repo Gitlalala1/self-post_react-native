@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, StatusBar } from "react-native";
 import THEME from "../../THEME";
-import data from "../../data";
-import {
-	Ionicons,
-	Feather,
-	MaterialIcons,
-	FontAwesome,
-} from "@expo/vector-icons";
+
+import { Feather, MaterialIcons, FontAwesome } from "@expo/vector-icons";
 const HeaderNavigation = ({ navigation, options, back, route }) => {
 	const { headerTitle } = options;
-
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="light-content" backgroundColor={THEME.MAIN_COLOR} />

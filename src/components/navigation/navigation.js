@@ -1,58 +1,103 @@
 import React from "react";
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons, FontAwesome } from "@expo/vector-icons";
+
 import MainScreen from "../../screens/main-screen";
 import PostScreen from "./../../screens/post-screen";
+import BookedScreen from "../../screens/booked-screen";
 import THEME from "../../THEME";
 import HeaderNavigation from "../header-navigation";
-const Stack = createNativeStackNavigator();
+
+const Tab = createBottomTabNavigator();
+const MainStack = createNativeStackNavigator();
+const TabStack = createNativeStackNavigator();
+
 const Navigation = () => {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator
-				initialRouteName="Home"
-				headerMode="screen"
-				screenOptions={{
-					headerTintColor: "white",
-					headerStyle: {
-						backgroundColor: THEME.MAIN_COLOR,
-						justifyContent: "center",
-						alignItems: "center",
-						flexDirection: "row",
+			<Tab.Navigator
+				screenOptions={({ route }) => ({
+					headerShown: false,
+					tabBarInactiveTintColor: "gray",
+					tabBarActiveTintColor: THEME.MAIN_COLOR,
+					tabBarIcon: ({ focused, color, size }) => {
+						if (route.name === "Home") {
+							return (
+								<Ionicons
+									name={focused ? "home" : "home-outline"}
+									size={size}
+									color={THEME.MAIN_COLOR}
+								/>
+							);
+						}
+						if (route.name === "Booked Screen") {
+							return (
+								<FontAwesome
+									name={focused ? "star" : "star-o"}
+									size={size}
+									color={THEME.MAIN_COLOR}
+								/>
+							);
+						}
 					},
-					headerTitleAlign: "center",
-					headerBackVisible: true,
-					animation: "slide_from_left",
-					header: ({ navigation, route, options, back }) => (
-						<HeaderNavigation
-							navigation={navigation}
-							options={options}
-							back={back}
-							route={route}
-						/>
-					),
-				}}
+				})}
 			>
-				<Stack.Screen
-					name="Home"
-					component={MainScreen}
-					options={{
-						headerTitle: "My blog",
-					}}
-				/>
-				<Stack.Screen
-					name="Post"
-					component={PostScreen}
-					options={{
-						headerStyle: {
-							backgroundColor: "red",
-						},
-					}}
-				/>
-			</Stack.Navigator>
+				<Tab.Screen name="Home" component={MainNavigator} />
+				<Tab.Screen name="Booked Screen" component={TabNavigator} />
+			</Tab.Navigator>
 		</NavigationContainer>
 	);
 };
+
+const ScreenOptions = {
+	animation: "slide_from_left",
+	header: ({ navigation, route, options, back }) => (
+		<HeaderNavigation
+			navigation={navigation}
+			options={options}
+			back={back}
+			route={route}
+		/>
+	),
+};
+
+const MainNavigator = () => {
+	return (
+		<MainStack.Navigator screenOptions={ScreenOptions}>
+			<MainStack.Screen
+				name="Home"
+				component={MainScreen}
+				options={{
+					headerTitle: "My blog",
+				}}
+			/>
+			<MainStack.Screen
+				name="Post"
+				component={PostScreen}
+				options={{
+					headerStyle: {
+						backgroundColor: "red",
+					},
+				}}
+			/>
+		</MainStack.Navigator>
+	);
+};
+
+const TabNavigator = () => {
+	return (
+		<TabStack.Navigator screenOptions={ScreenOptions}>
+			<TabStack.Screen
+				name="Booked Screen"
+				component={BookedScreen}
+				options={{
+					headerTitle: "Booked Screen",
+				}}
+			/>
+		</TabStack.Navigator>
+	);
+};
+
 export default Navigation;
