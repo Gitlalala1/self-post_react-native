@@ -18,7 +18,12 @@ const HeaderNavigation = ({ navigation, options, back, route }) => {
 							onPress={() => navigation.goBack()}
 						/>
 					) : (
-						<Feather name="menu" size={28} color="#fff" />
+						<Feather
+							name="menu"
+							size={28}
+							color="#fff"
+							onPress={() => navigation.openDrawer()}
+						/>
 					)}
 				</View>
 				<View style={styles.center}>

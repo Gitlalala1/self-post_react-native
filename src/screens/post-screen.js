@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
 
 const PostScreen = ({ route, navigation }) => {
 	const { post } = route.params;
-
 	useEffect(() => {
 		navigation.setOptions({ headerTitle: post.text });
 	}, [navigation]);
@@ -24,7 +23,7 @@ const PostScreen = ({ route, navigation }) => {
 			</View>
 			<View style={styles.header}>
 				<View style={styles.wrap_title}>
-					<Text style={styles.title}>{post.text}</Text>
+					<Text style={styles.title}>{post.text} </Text>
 				</View>
 				<View style={styles.wrap_date}>
 					<Text style={styles.date}>{post.date}</Text>
