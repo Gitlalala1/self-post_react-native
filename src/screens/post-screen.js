@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
-
-const PostScreen = ({ route, navigation }) => {
+import { connect } from "react-redux";
+import { fetchPostRequest } from "../redux/slice/slicePost";
+const PostScreen = ({ route, navigation, postList, fetchPosts }) => {
 	const { post } = route.params;
 	useEffect(() => {
+		fetchPosts();
 		navigation.setOptions({ headerTitle: post.text });
 	}, [navigation]);
 	const onDeletePost = () => {
@@ -84,4 +86,13 @@ const styles = StyleSheet.create({
 		color: "red",
 	},
 });
-export default PostScreen;
+
+const mapStateToProps = (state) => {
+	return state;
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		fetchPosts: () => dispatch(fetchPostRequest()),
+	};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(PostScreen);

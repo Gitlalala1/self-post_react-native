@@ -15,7 +15,6 @@ import HeaderNavigation from "../header-navigation";
 
 const TabNavigator = createBottomTabNavigator();
 const NativeNavigator = createNativeStackNavigator();
-// const TabNavigator = createNativeStackNavigator();
 const DrawerNavigator = createDrawerNavigator();
 const Navigation = () => {
 	return (
@@ -25,39 +24,6 @@ const Navigation = () => {
 				<DrawerNavigator.Screen name="About Screen" component={NativeAbout} />
 			</DrawerNavigator.Navigator>
 		</NavigationContainer>
-
-		// <NavigationContainer>
-		// 	<Tab.Navigator
-		// 		screenOptions={({ route }) => ({
-		// 			headerShown: false,
-		// 			tabBarInactiveTintColor: "gray",
-		// 			tabBarActiveTintColor: THEME.MAIN_COLOR,
-		// 			tabBarIcon: ({ focused, color, size }) => {
-		// 				if (route.name === "Home") {
-		// 					return (
-		// 						<Ionicons
-		// 							name={focused ? "home" : "home-outline"}
-		// 							size={size}
-		// 							color={THEME.MAIN_COLOR}
-		// 						/>
-		// 					);
-		// 				}
-		// 				if (route.name === "Booked Screen") {
-		// 					return (
-		// 						<FontAwesome
-		// 							name={focused ? "star" : "star-o"}
-		// 							size={size}
-		// 							color={THEME.MAIN_COLOR}
-		// 						/>
-		// 					);
-		// 				}
-		// 			},
-		// 		})}
-		// 	>
-		// 		<Tab.Screen name="Home" component={MainNavigator} />
-		// 		<Tab.Screen name="Booked Screen" component={TabNavigator} />
-		// 	</Tab.Navigator>
-		// </NavigationContainer>
 	);
 };
 

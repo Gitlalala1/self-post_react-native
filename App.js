@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { Provider } from "react-redux";
 import { View } from "react-native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import store from "./src/redux/store";
 import Navigation from "./src/components/navigation";
 SplashScreen.preventAutoHideAsync();
-const App = () => {
+export default function App() {
 	const [appReady, setAppReady] = useState(false);
 
 	useEffect(() => {
@@ -37,9 +39,9 @@ const App = () => {
 
 	return (
 		<View onLayout={onLayout} style={{ flex: 1 }}>
-			<Navigation />
+			<Provider store={store}>
+				<Navigation />
+			</Provider>
 		</View>
 	);
-};
-
-export default App;
+}
