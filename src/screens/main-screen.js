@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
+import { connect } from "react-redux";
+
+import compose from "../utils/compose";
 import PostItem from "../components/post-item";
-import data from "../data";
 import THEME from "../THEME";
-const MainScreen = ({ navigation }) => {
+import fetchGetPosts from "../redux/actions";
+import withServices from "../hoc/with-services";
+const MainScreen = ({ navigation, fetchGetPosts, postList }) => {
+	useEffect(() => fetchGetPosts(), []);
 	const openPost = (post) => {
 		navigation.navigate("Post", { post });
 	};
@@ -11,7 +16,7 @@ const MainScreen = ({ navigation }) => {
 	return (
 		<View style={styles.container}>
 			<FlatList
-				data={data}
+				data={postList}
 				keyExtractor={(item) => item.id.toString()}
 				renderItem={({ item }) => <PostItem item={item} openPost={openPost} />}
 			/>
@@ -27,4 +32,18 @@ const styles = StyleSheet.create({
 		marginTop: THEME.MARGIN_TOP,
 	},
 });
-export default MainScreen;
+
+const mapStateToProps = (state) => {
+	const { error, loading, postList } = state.postReducer;
+	return { error, loading, postList };
+};
+const mapDispatchToProps = (dispatch, { services }) => {
+	return {
+		fetchGetPosts: () => fetchGetPosts(dispatch, services)(),
+	};
+};
+
+export default compose(
+	withServices(),
+	connect(mapStateToProps, mapDispatchToProps)
+)(MainScreen);

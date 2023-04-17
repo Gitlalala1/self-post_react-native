@@ -6,6 +6,10 @@ import * as SplashScreen from "expo-splash-screen";
 
 import store from "./src/redux/store";
 import Navigation from "./src/components/navigation";
+import { ServiceProvider } from "./src/context/context";
+import Services from "./src/services/services";
+
+const services = new Services();
 SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [appReady, setAppReady] = useState(false);
@@ -40,7 +44,9 @@ export default function App() {
 	return (
 		<View onLayout={onLayout} style={{ flex: 1 }}>
 			<Provider store={store}>
-				<Navigation />
+				<ServiceProvider value={services}>
+					<Navigation />
+				</ServiceProvider>
 			</Provider>
 		</View>
 	);
