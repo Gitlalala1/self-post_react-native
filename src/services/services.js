@@ -39,7 +39,7 @@ export default class Services {
 
 	getPosts = async () => {
 		const res = new Promise((resolve, reject) => {
-			setTimeout(() => resolve(this.DATA), 1000);
+			setTimeout(() => resolve([]), 1000);
 		});
 		return await res;
 	};

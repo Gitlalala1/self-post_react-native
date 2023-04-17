@@ -12,7 +12,7 @@ import BookedScreen from "../../screens/booked-screen";
 import AboutScreen from "../../screens/about-screen";
 import THEME from "../../THEME";
 import HeaderNavigation from "../header-navigation";
-
+import CreatePost from "../../screens/create-post-screen";
 const TabNavigator = createBottomTabNavigator();
 const NativeNavigator = createNativeStackNavigator();
 const DrawerNavigator = createDrawerNavigator();
@@ -83,6 +83,11 @@ const NativeHome = () => {
 				options={{ headerTitle: "Home" }}
 			/>
 			<NativeNavigator.Screen name="Post" component={PostScreen} />
+			<NativeNavigator.Screen
+				name="Create post"
+				component={CreatePost}
+				options={{ headerTitle: "Create Post" }}
+			/>
 		</NativeNavigator.Navigator>
 	);
 };

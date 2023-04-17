@@ -1,8 +1,5 @@
-import { configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+
 import postReducer from "./slice/slicePost";
 
-export default store = configureStore({
-	reducer: {
-		postReducer,
-	},
-});
+export const store = configureStore({ reducer: postReducer });

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import compose from "../utils/compose";
 import PostItem from "../components/post-item";
 import THEME from "../THEME";
-import fetchGetPosts from "../redux/actions";
+import { fetchGetPosts } from "../redux/actions/fetch-posts";
 import withServices from "../hoc/with-services";
 const MainScreen = ({ navigation, fetchGetPosts, postList }) => {
 	useEffect(() => fetchGetPosts(), []);
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-	const { error, loading, postList } = state.postReducer;
+	const { error, loading, postList } = state;
 	return { error, loading, postList };
 };
 const mapDispatchToProps = (dispatch, { services }) => {

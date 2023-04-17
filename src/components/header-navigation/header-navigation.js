@@ -30,19 +30,24 @@ const HeaderNavigation = ({ navigation, options, back, route }) => {
 					<Text style={styles.center_title}>{headerTitle}</Text>
 				</View>
 				<View style={styles.right}>
-					<RightHeader namePage={route.name} />
+					<RightHeader namePage={route.name} navigation={navigation} />
 				</View>
 			</View>
 		</View>
 	);
 };
 
-const RightHeader = ({ namePage }) => {
+const RightHeader = ({ namePage, navigation }) => {
 	const [booked, SetBooked] = useState();
 
 	const content =
-		namePage === "Home" ? (
-			<MaterialIcons name="add-a-photo" size={28} color="#fff" />
+		namePage != "Post" ? (
+			<MaterialIcons
+				name="add-a-photo"
+				size={28}
+				color="#fff"
+				onPress={() => navigation.navigate("Create post")}
+			/>
 		) : booked ? (
 			<FontAwesome
 				name="star"
