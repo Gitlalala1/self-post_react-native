@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import { connect } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
+import PhotoPicker from "../components/create-post/photo-picker";
 import { fetchAddPost } from "../redux/actions/fetch-posts";
 const CreatePost = ({ fetchAddPost }) => {
 	const [title, setTitle] = useState();
-	const [image, setImage] = useState();
-	console.log(title, image);
+	const [image, setImage] = useState(null);
+	const getPremiss = async () => {
+		const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		console.log(res);
+	};
+	useEffect(() => {
+		getPremiss();
+	}, []);
+	const pickImage = async () => {
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.Images,
+			allowsEditing: true,
+			aspect: [5, 3],
+			quality: 1,
+		});
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrap_form}>
@@ -19,18 +40,11 @@ const CreatePost = ({ fetchAddPost }) => {
 					/>
 				</View>
 				<View style={styles.wrap_input}>
-					<TextInput
-						style={styles.form_input}
-						autoFocus={false}
-						placeholder="Writing src you're img"
-						onChangeText={(newText) => setImage(newText)}
-						defaultValue={image}
-					/>
+					<PhotoPicker pickImage={pickImage} image={image} />
 				</View>
 				<View style={styles.wrap_button}>
 					<Pressable
 						style={styles.button}
-						title="Delete"
 						onPress={() => fetchAddPost(title, image)}
 					>
 						<Text style={styles.button_text}>Add</Text>

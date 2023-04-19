@@ -37,7 +37,8 @@
     "react-redux": "^8.0.5",
     "reat": "^0.0.1-security",
     "redux": "^4.2.1",
-    "uuid": "^7.0.3"
+    "uuid": "^7.0.3",
+    "expo-image-picker": "~14.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

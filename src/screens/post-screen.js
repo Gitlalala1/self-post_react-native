@@ -43,11 +43,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 	},
 	wrap_img: {
+		marginTop: 10,
 		width: "100%",
-		height: 400,
+		height: 250,
 	},
 	img: {
-		flex: 1,
+		width: "100%",
+		height: "100%",
+		resizeMode: "cover",
 	},
 	header: {
 		marginTop: 10,
