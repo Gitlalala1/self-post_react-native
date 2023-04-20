@@ -8,7 +8,7 @@ import { store } from "./src/redux/store";
 import Navigation from "./src/components/navigation";
 import { ServiceProvider } from "./src/context/context";
 import Services from "./src/services/services";
-
+import { DB } from "./src/database/db";
 const services = new Services();
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -17,6 +17,8 @@ export default function App() {
 	useEffect(() => {
 		async function prepare() {
 			try {
+				await DB.init();
+				console.log("start db");
 				await Font.loadAsync({
 					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
 					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
