@@ -3,19 +3,22 @@ import { View, Text, StyleSheet, TextInput, Pressable } from "react-native";
 import { connect } from "react-redux";
 import * as ImagePicker from "expo-image-picker";
 import PhotoPicker from "../components/create-post/photo-picker";
+import { bindActionCreators } from "redux";
+
+import compose from "../utils/compose";
+import withServices from "../hoc/with-services";
 import { fetchAddPost } from "../redux/actions/fetch-posts";
-const CreatePost = ({ fetchAddPost }) => {
+const CreatePost = ({ addPosts, navigation }) => {
 	const [title, setTitle] = useState();
 	const [image, setImage] = useState(null);
 	const getPremiss = async () => {
 		const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
-		console.log(res);
 	};
 	useEffect(() => {
 		getPremiss();
 	}, []);
 	const pickImage = async () => {
-		let result = await ImagePicker.launchCameraAsync({
+		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			allowsEditing: true,
 			aspect: [5, 3],
@@ -45,7 +48,11 @@ const CreatePost = ({ fetchAddPost }) => {
 				<View style={styles.wrap_button}>
 					<Pressable
 						style={styles.button}
-						onPress={() => fetchAddPost(title, image)}
+						onPress={() => {
+							addPosts(title, image, new Date().toJSON());
+
+							navigation.navigate("Home");
+						}}
 					>
 						<Text style={styles.button_text}>Add</Text>
 					</Pressable>
@@ -101,9 +108,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
 	return state;
 };
-const mapDispatchToProps = (dispatch) => {
-	return {
-		fetchAddPost: (title, image) => fetchAddPost(dispatch)(title, image),
-	};
+const mapDispatchToProps = (dispatch, { services }) => {
+	return bindActionCreators({ addPosts: fetchAddPost(services) }, dispatch);
 };
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
+
+export default compose(
+	withServices(),
+	connect(mapStateToProps, mapDispatchToProps)
+)(CreatePost);

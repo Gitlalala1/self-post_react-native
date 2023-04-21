@@ -18,8 +18,12 @@
     "@reduxjs/toolkit": "^1.9.3",
     "expo": "^48.0.10",
     "expo-app-loading": "^2.1.1",
+    "expo-asset": "~8.9.1",
+    "expo-file-system": "~15.2.2",
     "expo-font": "~11.1.1",
+    "expo-image-picker": "~14.1.1",
     "expo-splash-screen": "~0.18.1",
+    "expo-sqlite": "~11.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,11 +41,8 @@
     "react-redux": "^8.0.5",
     "reat": "^0.0.1-security",
     "redux": "^4.2.1",
-    "uuid": "^7.0.3",
-    "expo-image-picker": "~14.1.1",
-    "expo-sqlite": "~11.1.1",
-    "expo-file-system": "~15.2.2",
-    "expo-asset": "~8.9.1"
+    "redux-thunk": "^2.4.2",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

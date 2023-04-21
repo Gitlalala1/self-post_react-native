@@ -7,9 +7,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { store } from "./src/redux/store";
 import Navigation from "./src/components/navigation";
 import { ServiceProvider } from "./src/context/context";
-import Services from "./src/services/services";
 import { DB } from "./src/database/db";
-const services = new Services();
+const services = new DB();
 SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [appReady, setAppReady] = useState(false);
@@ -17,8 +16,7 @@ export default function App() {
 	useEffect(() => {
 		async function prepare() {
 			try {
-				await DB.init();
-				console.log("start db");
+				await services.init();
 				await Font.loadAsync({
 					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
 					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
@@ -38,7 +36,7 @@ export default function App() {
 	const onLayout = useCallback(async () => {
 		if (appReady) {
 			await SplashScreen.hideAsync();
-			console.log(Font.isLoaded("tillana-medium"));
+			console.log('Font.isLoaded("tillana-medium")');
 		}
 	}, [appReady]);
 	if (!appReady) return null;

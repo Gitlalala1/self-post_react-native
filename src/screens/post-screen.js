@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
 const PostScreen = ({ route, navigation }) => {
 	const { post } = route.params;
 	useEffect(() => {
-		navigation.setOptions({ headerTitle: post.text });
+		navigation.setOptions({ headerTitle: post.title });
 	}, [navigation]);
 	const onDeletePost = () => {
 		Alert.alert("Remove post", "You're shure?", [
@@ -19,7 +19,7 @@ const PostScreen = ({ route, navigation }) => {
 	return (
 		<View style={styles.container}>
 			<View style={styles.wrap_img}>
-				<Image style={styles.img} source={{ uri: post.img }} />
+				<Image style={styles.img} source={{ uri: post.image }} />
 			</View>
 			<View style={styles.header}>
 				<View style={styles.wrap_title}>

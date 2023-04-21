@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import compose from "../utils/compose";
 import PostItem from "../components/post-item";
@@ -17,7 +18,7 @@ const MainScreen = ({ navigation, fetchGetPosts, postList }) => {
 		<View style={styles.container}>
 			<FlatList
 				data={postList}
-				keyExtractor={(item) => item.id.toString()}
+				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <PostItem item={item} openPost={openPost} />}
 			/>
 		</View>
@@ -37,10 +38,12 @@ const mapStateToProps = (state) => {
 	const { error, loading, postList } = state;
 	return { error, loading, postList };
 };
+
 const mapDispatchToProps = (dispatch, { services }) => {
-	return {
-		fetchGetPosts: () => fetchGetPosts(dispatch, services)(),
-	};
+	return bindActionCreators(
+		{ fetchGetPosts: fetchGetPosts(services) },
+		dispatch
+	);
 };
 
 export default compose(

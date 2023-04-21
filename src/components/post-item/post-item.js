@@ -10,12 +10,12 @@ const PostItem = ({ item, openPost }) => {
 	return (
 		<TouchableOpacity activeOpacity={0.8} onPress={() => openPost(item)}>
 			<View style={styles.container}>
-				<ImageBackground style={styles.image} source={{ uri: item.img }}>
+				<ImageBackground style={styles.image} source={{ uri: item.image }}>
 					<View style={styles.wrap_date}>
 						<Text style={styles.date}>{item.date}</Text>
 					</View>
 					<View style={styles.wrap_title}>
-						<Text style={styles.title}>{item.text}</Text>
+						<Text style={styles.title}>{item.title}</Text>
 					</View>
 				</ImageBackground>
 			</View>

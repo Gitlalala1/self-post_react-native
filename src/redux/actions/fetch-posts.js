@@ -6,9 +6,9 @@ import {
 	deletePost,
 	updatePost,
 } from "../slice/slicePost";
+import * as FileSystem from "expo-file-system";
 
-const fetchGetPosts = (dispatch, services) => () => {
-	console.log("start get fetch");
+const fetchGetPosts = (services) => () => (dispatch) => {
 	dispatch(postRequest());
 	services
 		.getPosts()
@@ -16,11 +16,39 @@ const fetchGetPosts = (dispatch, services) => () => {
 		.catch((error) => dispatch(postError({ error })));
 };
 
-const fetchAddPost = (dispatch) => (title, image) => {
-	console.log("start add fetch");
-	dispatch(postRequest());
-	dispatch(addPost({ title, image }));
+const loadingFile = (image, dispatch) => {
+	const fileName = image.split("/").pop();
+	const pathImage = FileSystem.documentDirectory + fileName;
+
+	const load = async () => {
+		try {
+			await FileSystem.moveAsync({
+				to: pathImage,
+				from: image,
+			});
+		} catch (error) {
+			dispatch(postError({ error }));
+		}
+	};
+	load();
+	return pathImage;
 };
+
+const fetchAddPost =
+	(services) =>
+	(title, image, date, booked = 0) =>
+	async (dispatch) => {
+		console.log("start add fetch");
+		const pathImg = await loadingFile(image, dispatch);
+		const newPost = { title, image: pathImg, date, booked };
+
+		await services
+			.addPost(newPost)
+			.then((result) => dispatch(addPost({ id: result.insertId, ...newPost })))
+			.catch((e) => dispatch(postError(e)));
+
+		return await "s";
+	};
 const fetchUpdatePost = () => {};
 const fetchDeletePost = () => {};
 

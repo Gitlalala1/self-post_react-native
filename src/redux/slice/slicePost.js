@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import nextId from "react-id-generator";
 const initialState = {
 	postList: [],
 	loading: true,
@@ -19,14 +18,7 @@ const slicePost = createSlice({
 			console.log("success");
 		},
 		addPost: (state, action) => {
-			const newPost = {
-				id: nextId(),
-				img: action.payload.image,
-				text: action.payload.title,
-				date: new Date().toJSON(),
-				booked: false,
-			};
-			state.postList = [newPost, ...state.postList];
+			state.postList = [action.payload, ...state.postList];
 		},
 		deletePost: (state) => {
 			return state;
@@ -38,7 +30,7 @@ const slicePost = createSlice({
 		postError: (state, action) => {
 			state.loading = false;
 			state.error = action.payload.error;
-			console.log("error");
+			console.log("Error:" + action.payload.error);
 		},
 	},
 });
