@@ -1,6 +1,6 @@
 import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabase("self_post.db");
+const db = SQLite.openDatabase("self_post2.db");
 
 export class DB {
 	init = async () => {

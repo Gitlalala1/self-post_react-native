@@ -6,13 +6,15 @@ import PhotoPicker from "../components/create-post/photo-picker";
 import { bindActionCreators } from "redux";
 
 import compose from "../utils/compose";
-import withServices from "../hoc/with-services";
+import withServices from "../utils/hoc/with-services";
 import { fetchAddPost } from "../redux/actions/fetch-posts";
 const CreatePost = ({ addPosts, navigation }) => {
 	const [title, setTitle] = useState();
 	const [image, setImage] = useState(null);
 	const getPremiss = async () => {
-		const res = await ImagePicker.requestMediaLibraryPermissionsAsync();
+		await ImagePicker.getMediaLibraryPermissionsAsync().then((perm) =>
+			console.log(perm)
+		);
 	};
 	useEffect(() => {
 		getPremiss();

@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Provider } from "react-redux";
 import { View } from "react-native";
-import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { initProject, services } from "./src/init-project";
 import { store } from "./src/redux/store";
 import Navigation from "./src/components/navigation";
-import { ServiceProvider } from "./src/context/context";
-import { DB } from "./src/database/db";
-const services = new DB();
+import { ServiceProvider } from "./src/utils/context/context";
+
 SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [appReady, setAppReady] = useState(false);
@@ -16,14 +15,7 @@ export default function App() {
 	useEffect(() => {
 		async function prepare() {
 			try {
-				await services.init();
-				await Font.loadAsync({
-					"tillana-bold": require("./assets/fonts/Tillana-Bold.ttf"),
-					"tillana-extraBold": require("./assets/fonts/Tillana-ExtraBold.ttf"),
-					"tillana-medium": require("./assets/fonts/Tillana-Medium.ttf"),
-					"tillana-regular": require("./assets/fonts/Tillana-Regular.ttf"),
-					"tillana-semiBold": require("./assets/fonts/Tillana-Bold.ttf"),
-				});
+				initProject();
 			} catch (error) {
 				console.log(error);
 			} finally {
@@ -36,7 +28,7 @@ export default function App() {
 	const onLayout = useCallback(async () => {
 		if (appReady) {
 			await SplashScreen.hideAsync();
-			console.log('Font.isLoaded("tillana-medium")');
+			console.log("Font.isLoaded");
 		}
 	}, [appReady]);
 	if (!appReady) return null;

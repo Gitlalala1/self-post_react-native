@@ -7,7 +7,7 @@ import compose from "../utils/compose";
 import PostItem from "../components/post-item";
 import THEME from "../THEME";
 import { fetchGetPosts } from "../redux/actions/fetch-posts";
-import withServices from "../hoc/with-services";
+import withServices from "../utils/hoc/with-services";
 const MainScreen = ({ navigation, fetchGetPosts, postList }) => {
 	useEffect(() => fetchGetPosts(), []);
 	const openPost = (post) => {
