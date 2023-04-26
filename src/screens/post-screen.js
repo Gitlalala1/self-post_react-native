@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-const PostScreen = ({ route, navigation }) => {
+import withServices from "../utils/hoc/with-services";
+import { fetchDeletePost } from "../redux/actions/fetch-posts";
+import compose from "../utils/compose";
+
+const PostScreen = ({ route, navigation, deletePost }) => {
 	const { post } = route.params;
 	useEffect(() => {
 		navigation.setOptions({ headerTitle: post.title });
@@ -13,7 +19,13 @@ const PostScreen = ({ route, navigation }) => {
 				onPress: () => console.log("Cancel Pressed"),
 				style: "cancel",
 			},
-			{ text: "Delete", onPress: () => console.log("OK Pressed") },
+			{
+				text: "Delete",
+				onPress: () => {
+					deletePost(post.id);
+					navigation.navigate("Home");
+				},
+			},
 		]);
 	};
 	return (
@@ -88,4 +100,13 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PostScreen;
+const mapDispatchToProps = (dispatch, { services }) => {
+	return bindActionCreators(
+		{ deletePost: fetchDeletePost(services) },
+		dispatch
+	);
+};
+export default compose(
+	withServices(),
+	connect(null, mapDispatchToProps)
+)(PostScreen);

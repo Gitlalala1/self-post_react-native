@@ -45,11 +45,15 @@ const fetchAddPost =
 		await services
 			.addPost(newPost)
 			.then((result) => dispatch(addPost({ id: result.insertId, ...newPost })))
-			.catch((e) => dispatch(postError(e)));
-
-		return await "s";
+			.catch((e) => dispatch(postError({ error: e })));
 	};
 const fetchUpdatePost = () => {};
-const fetchDeletePost = () => {};
+const fetchDeletePost = (services) => (id) => async (dispatch, getState) => {
+	console.log(getState());
+	await services
+		.deletePost({ id })
+		.then(() => dispatch(deletePost({ id })))
+		.catch((e) => dispatch(postError({ error: e })));
+};
 
 export { fetchGetPosts, fetchAddPost, fetchUpdatePost, fetchDeletePost };

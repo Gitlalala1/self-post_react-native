@@ -20,8 +20,14 @@ const slicePost = createSlice({
 		addPost: (state, action) => {
 			state.postList = [action.payload, ...state.postList];
 		},
-		deletePost: (state) => {
-			return state;
+		deletePost: (state, action) => {
+			const itemIndex = state.postList.findIndex(
+				(el) => el.id == action.payload.id
+			);
+			state.postList = [
+				...state.postList.slice(0, itemIndex),
+				...state.postList.slice(itemIndex + 1),
+			];
 		},
 		updatePost: (state) => {
 			console.log("error");

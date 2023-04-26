@@ -42,4 +42,17 @@ export class DB {
 			});
 		});
 	};
+	deletePost = async ({ id }) => {
+		console.log(id);
+		return await new Promise((resolve, reject) => {
+			db.transaction((tx) => {
+				tx.executeSql(
+					`DELETE FROM posts WHERE id=?`,
+					[id],
+					(_, result) => resolve(result),
+					(_, error) => reject(error)
+				);
+			});
+		});
+	};
 }
