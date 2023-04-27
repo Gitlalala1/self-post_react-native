@@ -43,11 +43,28 @@ export class DB {
 		});
 	};
 	deletePost = async ({ id }) => {
-		console.log(id);
 		return await new Promise((resolve, reject) => {
 			db.transaction((tx) => {
 				tx.executeSql(
 					`DELETE FROM posts WHERE id=?`,
+					[id],
+					(_, result) => resolve(result),
+					(_, error) => reject(error)
+				);
+			});
+		});
+	};
+
+	updatePost = async ({ id, ...obj }) => {
+		const string = Object.entries(obj)
+			.map((el) => el.map((elem, ind) => (ind == 0 ? elem : `'${elem}'`)))
+			.map((el) => el.join("="))
+			.join(",");
+
+		return await new Promise((resolve, reject) => {
+			db.transaction((tx) => {
+				tx.executeSql(
+					`UPDATE posts SET ${string} WHERE id=?`,
 					[id],
 					(_, result) => resolve(result),
 					(_, error) => reject(error)

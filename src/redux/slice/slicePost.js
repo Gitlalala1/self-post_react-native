@@ -10,7 +10,8 @@ const slicePost = createSlice({
 	initialState,
 	reducers: {
 		postRequest: (state) => {
-			console.log("request");
+			console.log("start fetch");
+			state.loading = true;
 		},
 		postSuccess: (state, action) => {
 			state.postList = action.payload.data;
@@ -18,9 +19,11 @@ const slicePost = createSlice({
 			console.log("success");
 		},
 		addPost: (state, action) => {
+			console.log("start add");
 			state.postList = [action.payload, ...state.postList];
 		},
 		deletePost: (state, action) => {
+			console.log("start delete");
 			const itemIndex = state.postList.findIndex(
 				(el) => el.id == action.payload.id
 			);
@@ -29,9 +32,19 @@ const slicePost = createSlice({
 				...state.postList.slice(itemIndex + 1),
 			];
 		},
-		updatePost: (state) => {
-			console.log("error");
-			return state;
+		updatePost: (state, action) => {
+			console.log("start update");
+			const itemIndex = state.postList.findIndex(
+				(el) => el.id == action.payload.id
+			);
+			const item = state.postList[itemIndex];
+			const newItem = { ...item, ...action.payload };
+			state.postList = [
+				...state.postList.slice(0, itemIndex),
+				newItem,
+				...state.postList.slice(itemIndex + 1),
+			];
+			console.log(state);
 		},
 		postError: (state, action) => {
 			state.loading = false;

@@ -1,16 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable, Alert } from "react-native";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import withServices from "../utils/hoc/with-services";
-import { fetchDeletePost } from "../redux/actions/fetch-posts";
+import { fetchDeletePost, fetchUpdatePost } from "../redux/actions/fetch-posts";
 import compose from "../utils/compose";
+import ModalUpdatePost from "../components/modal-update-post";
 
-const PostScreen = ({ route, navigation, deletePost }) => {
+const PostScreen = ({
+	route,
+	navigation,
+	deletePost,
+	updatePost,
+	postList,
+	loading,
+}) => {
+	const [modalVisible, setModalVisible] = useState(false);
 	const { post } = route.params;
+	const postItem = postList[postList.findIndex((el) => el.id == post.id)];
+
 	useEffect(() => {
-		navigation.setOptions({ headerTitle: post.title });
+		navigation.setOptions({ headerTitle: postItem.title });
 	}, [navigation]);
 	const onDeletePost = () => {
 		Alert.alert("Remove post", "You're shure?", [
@@ -22,7 +33,7 @@ const PostScreen = ({ route, navigation, deletePost }) => {
 			{
 				text: "Delete",
 				onPress: () => {
-					deletePost(post.id);
+					deletePost(postItem.id);
 					navigation.navigate("Home");
 				},
 			},
@@ -30,20 +41,41 @@ const PostScreen = ({ route, navigation, deletePost }) => {
 	};
 	return (
 		<View style={styles.container}>
+			<ModalUpdatePost
+				visible={modalVisible}
+				onCancel={setModalVisible}
+				updatePost={updatePost}
+				post={postItem}
+			/>
 			<View style={styles.wrap_img}>
-				<Image style={styles.img} source={{ uri: post.image }} />
+				<Image style={styles.img} source={{ uri: postItem.image }} />
 			</View>
 			<View style={styles.header}>
 				<View style={styles.wrap_title}>
-					<Text style={styles.title}>{post.text} </Text>
+					<Text style={styles.title}>{postItem.title} </Text>
 				</View>
 				<View style={styles.wrap_date}>
-					<Text style={styles.date}>{post.date}</Text>
+					<Text style={styles.date}>{postItem.date}</Text>
 				</View>
 			</View>
 			<View style={styles.wrap_button}>
-				<Pressable style={styles.button} title="Delete" onPress={onDeletePost}>
-					<Text style={styles.button_text}>Delete</Text>
+				<Pressable
+					style={[styles.button, styles.button_update]}
+					title="Update"
+					onPress={() => {
+						setModalVisible(true);
+					}}
+				>
+					<Text style={{ textAlign: "center", color: "blue" }}>Update</Text>
+				</Pressable>
+			</View>
+			<View style={styles.wrap_button}>
+				<Pressable
+					style={[styles.button, styles.button_delete]}
+					title="Delete"
+					onPress={onDeletePost}
+				>
+					<Text style={{ textAlign: "center", color: "red" }}>Delete</Text>
 				</Pressable>
 			</View>
 		</View>
@@ -82,31 +114,35 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		width: "100%",
 		flexDirection: "row",
+		marginBottom: 15,
 	},
 	button: {
 		width: "40%",
 		paddingVertical: 10,
 		paddingHorizontal: 14,
-
 		borderStyle: "solid",
 		borderWidth: 1,
-		borderColor: "red",
+
 		borderRadius: 30,
 		justifyContent: "center",
 	},
-	button_text: {
-		textAlign: "center",
-		color: "red",
-	},
+	button_delete: { borderColor: "red" },
+	button_update: { borderColor: "blue" },
 });
-
+const mapStateToProps = (state) => {
+	const { error, loading, postList } = state;
+	return { error, loading, postList };
+};
 const mapDispatchToProps = (dispatch, { services }) => {
 	return bindActionCreators(
-		{ deletePost: fetchDeletePost(services) },
+		{
+			deletePost: fetchDeletePost(services),
+			updatePost: fetchUpdatePost(services),
+		},
 		dispatch
 	);
 };
 export default compose(
 	withServices(),
-	connect(null, mapDispatchToProps)
+	connect(mapStateToProps, mapDispatchToProps)
 )(PostScreen);

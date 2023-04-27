@@ -11,14 +11,7 @@ import { fetchAddPost } from "../redux/actions/fetch-posts";
 const CreatePost = ({ addPosts, navigation }) => {
 	const [title, setTitle] = useState();
 	const [image, setImage] = useState(null);
-	const getPremiss = async () => {
-		await ImagePicker.getMediaLibraryPermissionsAsync().then((perm) =>
-			console.log(perm)
-		);
-	};
-	useEffect(() => {
-		getPremiss();
-	}, []);
+
 	const pickImage = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
