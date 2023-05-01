@@ -13,7 +13,7 @@ const CreatePost = ({ addPosts, navigation }) => {
 	const [image, setImage] = useState(null);
 
 	const pickImage = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync({
+		let result = await ImagePicker.launchCameraAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.Images,
 			allowsEditing: true,
 			aspect: [5, 3],
