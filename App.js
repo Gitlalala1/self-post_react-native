@@ -7,7 +7,7 @@ import { initProject, services } from "./src/init-project";
 import { store } from "./src/redux/store";
 import Navigation from "./src/components/navigation";
 import { ServiceProvider } from "./src/utils/context/context";
-
+// token: vLCnXY4u60nc84xJFr2D13VbGgXpMHTLJZb610N3
 SplashScreen.preventAutoHideAsync();
 export default function App() {
 	const [appReady, setAppReady] = useState(false);

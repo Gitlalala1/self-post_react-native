@@ -42,7 +42,8 @@
     "reat": "^0.0.1-security",
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
-    "uuid": "^7.0.3"
+    "uuid": "^7.0.3",
+    "expo-updates": "~0.16.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

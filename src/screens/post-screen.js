@@ -22,7 +22,7 @@ const PostScreen = ({
 
 	useEffect(() => {
 		navigation.setOptions({ headerTitle: postItem.title });
-	}, [navigation]);
+	}, [postItem]);
 	const onDeletePost = () => {
 		Alert.alert("Remove post", "You're shure?", [
 			{
