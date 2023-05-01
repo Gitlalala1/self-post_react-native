@@ -28,7 +28,7 @@ export default function App() {
 	const onLayout = useCallback(async () => {
 		if (appReady) {
 			await SplashScreen.hideAsync();
-			console.log("Font.isLoaded is ok");
+			console.log("Font.isLoaded");
 		}
 	}, [appReady]);
 	if (!appReady) return null;
